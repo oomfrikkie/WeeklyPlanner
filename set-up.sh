@@ -2,7 +2,7 @@
 
 set -e
 
-echo "🚀 Setting up WeeklyPlanner (NestJS + React)"
+echo "🚀 Setting up WeeklyPlanner (NestJS + React TS)"
 
 # -------------------------------------------------------
 # GLOBAL NPM PREFIX (SAFE & CROSS-SHELL)
@@ -15,7 +15,6 @@ npm config set prefix "$NPM_GLOBAL"
 
 EXPORT_LINE='export PATH="$PATH:$HOME/.npm-global/bin"'
 
-# Add to shell configs if missing
 for file in "$HOME/.bashrc" "$HOME/.zshrc"; do
   if [ -f "$file" ] && ! grep -q ".npm-global/bin" "$file"; then
     echo "$EXPORT_LINE" >> "$file"
@@ -30,17 +29,20 @@ echo "✔ npm global prefix configured"
 # BACKEND SETUP
 # -------------------------------------------------------
 echo "📂 Entering backend folder..."
-cd backend || { echo "❌ backend folder not found"; exit 1; }
+cd backend || { echo "❌ backend folder not found. Run 'nest new backend --skip-git' first."; exit 1; }
 
 echo "📥 Installing backend dependencies..."
 npm install
 
-echo "🔐 Installing bcrypt + types..."
+echo "🔐 Installing auth dependencies..."
 npm install bcrypt
 npm install -D @types/bcrypt
 
-echo "📘 Installing Swagger dependencies..."
+echo "📘 Installing Swagger..."
 npm install @nestjs/swagger swagger-ui-express
+
+echo "🗄️ Installing TypeORM + PostgreSQL..."
+npm install @nestjs/typeorm typeorm pg
 
 echo "✔ Backend setup complete"
 
@@ -52,8 +54,8 @@ cd ..
 echo "🌐 Setting up frontend..."
 
 if [ ! -d "frontend" ]; then
-  echo "📦 Creating Vite React app..."
-  npm create vite@latest frontend -- --template react
+  echo "📦 Creating Vite React + TypeScript app..."
+  npm create vite@latest frontend -- --template react-ts
 fi
 
 cd frontend || { echo "❌ frontend folder not found"; exit 1; }
