@@ -1,0 +1,26 @@
+a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.5rem;
+
+  border-bottom: 2px solid transparent;
+  transition: 
+    color 0.2s ease,
+    border-bottom-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent);
+  transform: translateY(-5px);
+}
+
+a:active{
+    border-bottom-color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
