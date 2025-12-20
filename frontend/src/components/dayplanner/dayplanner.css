@@ -1,37 +1,119 @@
-.dayplanner-container{
-    display: flex;
-    flex-direction: column;
-   align-items: center;
-    min-height: 62vh;
-    min-width: 80vw;
-    
+.dayplanner-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+
+  width: 90%;
+  max-width: 70rem; /* ~1120px */
+  min-height: 62vh;
+
+  align-self: center;
 }
 
-.dayplanner-container h1{
-    align-self: flex-start;
+
+.dayplanner-container h1 {
+  margin-bottom: 2rem;
+  align-self: flex-start;
 }
 
-.placeholder {
-  width: 150px;
-  height: auto;
-  display: block;
+.dayplanner-main {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  background-color: rgba(231, 231, 231, 0.479);
+  padding: 1rem;
+  border-radius: 2rem;
 }
+
 
 .dayplanner-list {
+  flex: 0 0 65%;        /* takes ~2/3 of space */
+  max-width: 65%;
+  min-width: 20rem;    /* prevents collapsing too far */
+
+  max-height: 28rem;   /* controls wrapping */
+
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 
   padding: 2rem;
-  gap: 1rem; 
+  gap: 1rem;
+
   
+  border-radius: 1rem;
 
-  width: 95vw;
-  max-height: 220px; /* <-- this is the key */
+  flex-shrink: 0;
 }
 
 
-.dayplanner-list li{
-    list-style: none;
+.dayplanner-list li {
+  list-style: none;
+  font-size: 1.1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 2rem;
+
+  align-self: flex-start;
+  width: fit-content;
+
+  transition: background-color 0.25s ease;
 }
+
+.dayplanner-list li:hover {
+  background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+/* TASK ROW */
+.task-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.task-row input {
+  pointer-events: none;
+}
+
+.task-row input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.day-subtitle {
+  max-width: 40rem;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+}
+
+.pieChart {
+  flex: 0 0 30%;
+  max-width: 20%;
+  min-width: 14rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+/* pie is pinned here */
+.pie-fixed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* message can grow without affecting pie */
+.pie-message {
+  margin-top: 1rem;
+  min-height: 3.5rem;   /* reserve vertical space */
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
 

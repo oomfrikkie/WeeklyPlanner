@@ -8,17 +8,20 @@ export default function Home() {
     "Grocery shopping",
     "Walk the dog",
     "Gym – 1 hour",
+    "Grocery shopping",  "Gym – 1 hour",
+    "Grocery shopping",
+    "Walk the dog",
+    "Gym – 1 hour",
+    "Grocery shopping",  "Gym – 1 hour",
+    "Grocery shopping",
+    "Walk the dog",
+    "Gym – 1 hour",
+    "Grocery shopping",  "Gym – 1 hour",
     "Grocery shopping",
     "Walk the dog",
     "Gym – 1 hour",
     "Grocery shopping",
-    "Walk the dog",
-    "Gym – 1 hour",
-    "Grocery shopping",
-    "Walk the dog",
-    "Gym – 1 hour",
-    "Grocery shopping",
-    "Walk the dog",
+    
     
   ]);
 
@@ -26,8 +29,6 @@ export default function Home() {
     
       <section>
         <div className="dayplanner-section">
-            <div className="piechart"><img src="OneFifty.png" className="placeholder" alt="" /></div>
-        
             <DayPlanner day="Monday" items={items} />
         </div>
       </section>
