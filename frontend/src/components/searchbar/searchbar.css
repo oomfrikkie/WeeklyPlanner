@@ -1,0 +1,13 @@
+.searchbar{
+    width: 30vw;
+    padding: 0.7rem;
+    border-radius: 2rem;
+}
+
+.searchbar:hover{
+    border: solid var(--accent);
+}
+
+.searchbar-container{
+    align-self: center;
+}

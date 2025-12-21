@@ -10,4 +10,4 @@ import { AccountTokenService } from './account-token.service';
     providers: [AccountTokenService],
     exports: [AccountTokenService],
 })
-export class AccountTokenModule;
+export class AccountTokenModule {}

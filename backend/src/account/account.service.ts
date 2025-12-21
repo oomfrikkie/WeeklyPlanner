@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { Account } from './account.entity';
-import { Profile } from 'src/profile/profile.entity';
+
 import { CreateAccountDto } from './dto-account/create-account.dto';
 import { LoginDto } from './dto-account/login.dto'; 
 
@@ -18,12 +18,14 @@ export class AccountService {
     @InjectRepository(Account)
     private readonly accountRepo: Repository<Account>,
 
-    @InjectRepository(Profile)
-    private readonly profileRepo: Repository<Profile>,
+    
+    
 
     private readonly tokenService: AccountTokenService,
   ) {}
 
+
+  //register
     async createProfile(dto: CreateAccountDto) {
   if (!dto.email || !dto.password) {
     throw new BadRequestException('Email and/or password is required...');
@@ -80,7 +82,7 @@ export class AccountService {
 }
 
 
-  async LoginDto(dto:LoginDto){
+  async login(dto:LoginDto){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(dto.email)) {
       throw new UnauthorizedException('Invalid email format...');
@@ -114,9 +116,11 @@ export class AccountService {
         await this.accountRepo.save(existing);
 
         return {
-          message: 'Login successful',
-          email: existing.email,
-        };
+  message: 'Login successful',
+  account_id: existing.id,
+  email: existing.email,
+};
+
     } catch (error) {
       throw new BadRequestException('Login succeeded but failed to update account state.',);
     }

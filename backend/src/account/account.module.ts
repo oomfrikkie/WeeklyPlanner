@@ -3,6 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Account } from './account.entity';
 import { AccountService } from './account.service';
-import { AccountControl
-
+import { AccountController } from './account.controller';
 import { AccountTokenModule } from './token/account-token.module';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([Account]),
+    AccountTokenModule,
+  ],
+  providers: [AccountService],
+  controllers: [AccountController],
+})
+export class AccountModule {}

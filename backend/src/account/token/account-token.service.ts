@@ -20,7 +20,7 @@ export class AccountTokenService {
 
   async createToken(dto: CreateTokenDto) {
     const account = await this.accountRepo.findOne({
-      where: { account_id: dto.account_id },
+      where: { id: dto.account_id },
     });
 
     if (!account) throw new NotFoundException('Account not found');

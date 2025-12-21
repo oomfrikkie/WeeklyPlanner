@@ -24,3 +24,11 @@ a:active{
   flex-direction: row;
   gap: 1rem;
 }
+
+.cart-icons{
+  width: 30px;
+}
+
+.cart-bade{
+  font-size: smaller;
+}
