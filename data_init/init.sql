@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS account_token (
     is_used BOOLEAN DEFAULT FALSE,
     used_at TIMESTAMP NULL,
     account_id INTEGER NOT NULL,
-    CONSTRAINT fk_account
+    CONSTRAINT fk_account_token_account
         FOREIGN KEY (account_id)
         REFERENCES accounts(id)
         ON DELETE CASCADE
@@ -51,36 +51,55 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 -- =====================================================
--- PRODUCT ↔ CATEGORY (many-to-many)
+-- PRODUCT ↔ CATEGORY (MANY TO MANY)
 -- =====================================================
 CREATE TABLE IF NOT EXISTS product_categories (
     product_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
     PRIMARY KEY (product_id, category_id),
-    CONSTRAINT fk_product
+    CONSTRAINT fk_product_categories_product
         FOREIGN KEY (product_id)
         REFERENCES products(id)
         ON DELETE CASCADE,
-    CONSTRAINT fk_category
+    CONSTRAINT fk_product_categories_category
         FOREIGN KEY (category_id)
         REFERENCES categories(id)
         ON DELETE CASCADE
 );
 
 -- =====================================================
--- CART
+-- CARTS (ONE ACTIVE PER ACCOUNT)
 -- =====================================================
 CREATE TABLE IF NOT EXISTS cart (
     id SERIAL PRIMARY KEY,
     account_id INTEGER NOT NULL,
-    product_id INTEGER NOT NULL,
-    quantity INTEGER DEFAULT 1,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'ACTIVE', -- ACTIVE | CHECKED_OUT | EXPIRED
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_cart_account
         FOREIGN KEY (account_id)
         REFERENCES accounts(id)
+        ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS one_active_cart_per_account
+ON cart(account_id)
+WHERE status = 'ACTIVE';
+
+-- =====================================================
+-- CART ITEMS
+-- =====================================================
+CREATE TABLE IF NOT EXISTS cart_items (
+    id SERIAL PRIMARY KEY,
+    cart_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1,
+    CONSTRAINT uq_cart_item UNIQUE (cart_id, product_id),
+    CONSTRAINT fk_cart_items_cart
+        FOREIGN KEY (cart_id)
+        REFERENCES cart(id)
         ON DELETE CASCADE,
-    CONSTRAINT fk_cart_product
+    CONSTRAINT fk_cart_items_product
         FOREIGN KEY (product_id)
         REFERENCES products(id)
         ON DELETE CASCADE
@@ -110,37 +129,32 @@ INSERT INTO products (title, brand, description, price) VALUES
 -- =====================================================
 -- LINK PRODUCTS TO CATEGORIES
 -- =====================================================
--- Hoodie → Clothing, Streetwear
 INSERT INTO product_categories (product_id, category_id)
 SELECT p.id, c.id
-FROM products p, categories c
-WHERE p.title = 'Oversized Hoodie'
-AND c.name IN ('Clothing', 'Streetwear');
+FROM products p
+JOIN categories c ON c.name IN ('Clothing', 'Streetwear')
+WHERE p.title = 'Oversized Hoodie';
 
--- Tee → Clothing
 INSERT INTO product_categories (product_id, category_id)
 SELECT p.id, c.id
-FROM products p, categories c
-WHERE p.title = 'Classic White Tee'
-AND c.name = 'Clothing';
+FROM products p
+JOIN categories c ON c.name = 'Clothing'
+WHERE p.title = 'Classic White Tee';
 
--- Jeans → Clothing
 INSERT INTO product_categories (product_id, category_id)
 SELECT p.id, c.id
-FROM products p, categories c
-WHERE p.title = 'Slim Fit Jeans'
-AND c.name = 'Clothing';
+FROM products p
+JOIN categories c ON c.name = 'Clothing'
+WHERE p.title = 'Slim Fit Jeans';
 
--- Sneakers → Shoes, Streetwear
 INSERT INTO product_categories (product_id, category_id)
 SELECT p.id, c.id
-FROM products p, categories c
-WHERE p.title = 'Leather Sneakers'
-AND c.name IN ('Shoes', 'Streetwear');
+FROM products p
+JOIN categories c ON c.name IN ('Shoes', 'Streetwear')
+WHERE p.title = 'Leather Sneakers';
 
--- Cap → Accessories, Streetwear
 INSERT INTO product_categories (product_id, category_id)
 SELECT p.id, c.id
-FROM products p, categories c
-WHERE p.title = 'Baseball Cap'
-AND c.name IN ('Accessories', 'Streetwear');
+FROM products p
+JOIN categories c ON c.name IN ('Accessories', 'Streetwear')
+WHERE p.title = 'Baseball Cap';

@@ -5,7 +5,8 @@ import NavBar from './components/navbar/NavBar';
 import SearchBar from './components/searchbar/SearchBar';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
-import VerifyAccount from './verify/verify';
+import VerifyAccount from './pages/verify/Verify';
+import Cart from './pages/cart/Cart';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify/:token" element={<VerifyAccount />} />
+          <Route path ="/cart" element={<Cart />}/>
         </Routes>
       </main>
 

@@ -17,10 +17,6 @@ export class AccountService {
   constructor(
     @InjectRepository(Account)
     private readonly accountRepo: Repository<Account>,
-
-    
-    
-
     private readonly tokenService: AccountTokenService,
   ) {}
 

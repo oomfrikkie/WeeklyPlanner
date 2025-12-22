@@ -28,7 +28,7 @@ export class Account {
   @Column({ length: 50, default: 'ACTIVE' })
   status: string;
 
-  @Column({ default: 0 })
+  @Column({ default: 0, select: false })
   failed_login_attempts: number;
 
   @CreateDateColumn({ name: 'created_at' })

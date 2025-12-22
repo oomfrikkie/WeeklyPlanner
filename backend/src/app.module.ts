@@ -8,6 +8,10 @@ import { AppService } from './app.service';
 import { AccountModule } from './account/account.module';
 import { AccountTokenModule } from './account/token/account-token.module';
 
+import { ProductModule } from './products/product.module';
+import { CartModule } from './cart/cart.module';
+import { Cart } from './cart/cart.entity';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +33,8 @@ import { AccountTokenModule } from './account/token/account-token.module';
 
     AccountModule,
     AccountTokenModule,
+    ProductModule,
+    CartModule,
     
 
   ],
