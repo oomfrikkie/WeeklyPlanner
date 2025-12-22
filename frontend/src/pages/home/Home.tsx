@@ -17,7 +17,7 @@ export default function Home() {
             <div>
               <HeroBanner />
             </div>
-            <div>
+            <div className="browsing-container">
               <h1>Browser by category</h1>
               <ProductScroller category="Shoes" />
               <ProductScroller category="Sports" />

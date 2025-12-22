@@ -8,6 +8,7 @@ import Register from './pages/register/Register';
 import VerifyAccount from './pages/verify/Verify';
 import Cart from './pages/cart/Cart';
 import Product from './pages/product/Product';
+import SearchResults from './pages/searchresults/SearchReults';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/verify/:token" element={<VerifyAccount />} />
           <Route path ="/cart" element={<Cart />}/>
           <Route path ="/product/:id" element={<Product />}/>
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </main>
 

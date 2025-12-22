@@ -1,0 +1,9 @@
+.search-results-section{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-results-container{
+    display: flex;
+    gap: 1rem;
+}

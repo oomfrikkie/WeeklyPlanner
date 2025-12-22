@@ -11,6 +11,15 @@
 * {
   box-sizing: border-box;
 }
+body {
+  margin: 0;
+  background: linear-gradient(
+  to bottom,
+  #f7f7f7 90%,
+  #ffffff 100%
+);
+}
+
 
 header{
   width: 100%;
@@ -18,18 +27,15 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #f9fafb;
+border-bottom: 1px solid #e5e7eb;
 }
 
 main {
   margin: 0;
   min-height: 100vh;
   color: var(--text);
- background: linear-gradient(
-  to bottom,
-  #f7f7f7 90%,
-  #ffffff 100%
-);
-
+ 
 }
 
 

@@ -11,3 +11,29 @@
 .searchbar-container{
     align-self: center;
 }
+
+.searchbar-container { position: relative; }
+.search-dropdown {
+  position: absolute; top: 100%; left: 0; width: 100%;
+  background: white; border: 1px solid #ddd; border-top: none; z-index: 10;
+}
+.search-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.search-dropdown-item:hover {
+  background: #f5f5f5;
+}
+
+.search-dropdown-image {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
