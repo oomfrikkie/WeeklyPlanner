@@ -1,14 +1,25 @@
-import { NavLink } from "react-router-dom";
-import './navbar.css';
-import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom"
+import "./navbar.css"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export default function NavBar() {
-  const [logged, setLogged] = useState(false);
+  const [logged, setLogged] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
 
   useEffect(() => {
-    const accountId = sessionStorage.getItem("account_id");
-    setLogged(!!accountId);
-  }, []); // 👈 run once on mount
+    const accountId = sessionStorage.getItem("account_id")
+    setLogged(!!accountId)
+
+    if (accountId) {
+      axios
+        .get(`http://localhost:3000/cart/${accountId}`)
+        .then(res => {
+          setCartCount(res.data.items.length) // or res.data.length
+        })
+        .catch(console.error)
+    }
+  }, [])
 
   return (
     <section className="nav-container">
@@ -24,9 +35,11 @@ export default function NavBar() {
 
         <NavLink to="/cart" className="cart-link">
           <img src="/cart.svg" alt="Cart" className="cart-icons" />
-          <span className="cart-badge">0</span>
+          {cartCount > 0 && (
+            <span className="cart-badge">{cartCount}</span>
+          )}
         </NavLink>
       </nav>
     </section>
-  );
+  )
 }

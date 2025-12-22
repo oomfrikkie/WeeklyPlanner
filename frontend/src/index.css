@@ -23,13 +23,13 @@ header{
 main {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--bg);
   color: var(--text);
-   background: linear-gradient(
-    120deg,
-    #232f3e,
-    #37475a
-  );
+ background: linear-gradient(
+  to bottom,
+  #f7f7f7 90%,
+  #ffffff 100%
+);
+
 }
 
 
